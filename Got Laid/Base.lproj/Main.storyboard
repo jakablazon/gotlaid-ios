@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AYb-C0-WYL">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="WorkSans-ExtraBold.ttf">
+            <string>WorkSans-ExtraBold</string>
+            <string>WorkSans-ExtraBold</string>
+            <string>WorkSans-ExtraBold</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Table View Controller-->
+        <scene sceneID="45b-sa-2L7">
+            <objects>
+                <tableViewController storyboardIdentifier="FriendsViewController" id="kfx-Q9-51A" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rAa-qL-QDF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" id="TCl-I7-gnC">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TCl-I7-gnC" id="2Z8-28-IKT">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="kfx-Q9-51A" id="A4D-Pc-h7w"/>
+                            <outlet property="delegate" destination="kfx-Q9-51A" id="LHw-nA-2UM"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a2w-O2-Tp0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-128" y="722"/>
+        </scene>
+        <!--Button View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Got_Laid" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ButtonViewController" id="BYZ-38-t0r" customClass="ButtonViewController" customModule="Got_Laid" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +51,90 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Rxb-AX-aEw">
+                                <rect key="frame" x="192" y="192" width="216" height="216"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="216" id="YiM-AZ-UQC"/>
+                                    <constraint firstAttribute="height" constant="216" id="dKp-Nz-iay"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="WorkSans-ExtraBold" family="Work Sans" pointSize="34"/>
+                                <state key="normal" title="I JUST GOT LAID">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="laidButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="K4j-jx-a2c"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LET 345 OF YOUR FRIENDS KNOW" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CbC-Qd-dt3">
+                                <rect key="frame" x="197" y="500" width="207" height="57"/>
+                                <fontDescription key="fontDescription" name="WorkSans-ExtraBold" family="Work Sans" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WHOOOP!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilh-ae-Jzj">
+                                <rect key="frame" x="216" y="280" width="169" height="40"/>
+                                <fontDescription key="fontDescription" name="WorkSans-ExtraBold" family="Work Sans" pointSize="34"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Rxb-AX-aEw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JHZ-QM-WfD"/>
+                            <constraint firstItem="ilh-ae-Jzj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Jkh-bu-ToW"/>
+                            <constraint firstItem="CbC-Qd-dt3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MVh-U0-0VT"/>
+                            <constraint firstItem="Rxb-AX-aEw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="TJQ-jp-gSM"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="CbC-Qd-dt3" secondAttribute="bottom" constant="43" id="iDF-b4-GyS"/>
+                            <constraint firstItem="ilh-ae-Jzj" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qzb-1D-uoW"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="infoLabel" destination="CbC-Qd-dt3" id="Kzq-5g-tri"/>
+                        <outlet property="laidButton" destination="Rxb-AX-aEw" id="X8T-kn-cpu"/>
+                        <outlet property="whooopLabel" destination="ilh-ae-Jzj" id="eGd-CZ-Nw3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="630" y="722"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="cst-Wq-Lje">
+            <objects>
+                <tableViewController storyboardIdentifier="FeedViewController" id="ZHA-UM-Pud" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="hkU-oF-kys">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" id="JYh-ld-3fO">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JYh-ld-3fO" id="8HJ-Sd-OQo">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ZHA-UM-Pud" id="8O6-8p-VPR"/>
+                            <outlet property="delegate" destination="ZHA-UM-Pud" id="7yr-Lh-C38"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S34-ox-9Nm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1410" y="722"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="65f-Th-EOO">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="AYb-C0-WYL" customClass="RootViewController" customModule="Got_Laid" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WkB-EU-erV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="630" y="-43"/>
         </scene>
     </scenes>
 </document>
