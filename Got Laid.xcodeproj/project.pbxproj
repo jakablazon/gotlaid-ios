@@ -16,6 +16,7 @@
 		99CA25871D2B0651003CD34D /* WorkSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99CA25861D2B0651003CD34D /* WorkSans-ExtraBold.ttf */; };
 		99CA25891D2B9DA9003CD34D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99CA25881D2B9DA9003CD34D /* QuartzCore.framework */; };
 		99CA258B1D2BA13D003CD34D /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CA258A1D2BA13D003CD34D /* RootViewController.swift */; };
+		99CA258D1D2BB479003CD34D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CA258C1D2BB479003CD34D /* LoginViewController.swift */; };
 		B1994542E1C3F7DD194DDCB2 /* Pods_Got_Laid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446D284555CB602593C2FC6B /* Pods_Got_Laid.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		99CA25861D2B0651003CD34D /* WorkSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WorkSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		99CA25881D2B9DA9003CD34D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		99CA258A1D2BA13D003CD34D /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		99CA258C1D2BB479003CD34D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D47FEB83083A35FFB478311F /* Pods-Got Laid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Got Laid.release.xcconfig"; path = "Pods/Target Support Files/Pods-Got Laid/Pods-Got Laid.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +76,7 @@
 			children = (
 				99CA256B1D2AFE06003CD34D /* AppDelegate.swift */,
 				99CA258A1D2BA13D003CD34D /* RootViewController.swift */,
+				99CA258C1D2BB479003CD34D /* LoginViewController.swift */,
 				99CA256D1D2AFE06003CD34D /* ButtonViewController.swift */,
 				99CA256F1D2AFE06003CD34D /* Main.storyboard */,
 				99CA25721D2AFE06003CD34D /* Assets.xcassets */,
@@ -234,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99CA258D1D2BB479003CD34D /* LoginViewController.swift in Sources */,
 				99CA256E1D2AFE06003CD34D /* ButtonViewController.swift in Sources */,
 				99CA256C1D2AFE06003CD34D /* AppDelegate.swift in Sources */,
 				99CA258B1D2BA13D003CD34D /* RootViewController.swift in Sources */,

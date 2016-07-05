@@ -3,9 +3,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="WorkSans-ExtraBold.ttf">
+            <string>WorkSans-ExtraBold</string>
+            <string>WorkSans-ExtraBold</string>
             <string>WorkSans-ExtraBold</string>
             <string>WorkSans-ExtraBold</string>
             <string>WorkSans-ExtraBold</string>
@@ -79,14 +82,23 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHJ-Yd-KNF">
+                                <rect key="frame" x="276" y="20" width="48" height="30"/>
+                                <state key="normal" title="Logout"/>
+                                <connections>
+                                    <action selector="logoutButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Mb-zo-e0E"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Rxb-AX-aEw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JHZ-QM-WfD"/>
                             <constraint firstItem="ilh-ae-Jzj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Jkh-bu-ToW"/>
                             <constraint firstItem="CbC-Qd-dt3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MVh-U0-0VT"/>
+                            <constraint firstItem="lHJ-Yd-KNF" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Oom-nu-cDJ"/>
                             <constraint firstItem="Rxb-AX-aEw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="TJQ-jp-gSM"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="CbC-Qd-dt3" secondAttribute="bottom" constant="43" id="iDF-b4-GyS"/>
+                            <constraint firstItem="lHJ-Yd-KNF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="l2Z-fZ-A8J"/>
                             <constraint firstItem="ilh-ae-Jzj" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qzb-1D-uoW"/>
                         </constraints>
                     </view>
@@ -99,6 +111,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="630" y="722"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="15X-6v-ECv">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" id="KCh-eM-WWE" customClass="LoginViewController" customModule="Got_Laid" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fTz-cH-RWM"/>
+                        <viewControllerLayoutGuide type="bottom" id="eXM-4n-1hG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ujm-iQ-zXV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GOTLAID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vE0-OG-u8x">
+                                <rect key="frame" x="203" y="274" width="195" height="52"/>
+                                <fontDescription key="fontDescription" name="WorkSans-ExtraBold" family="Work Sans" pointSize="44"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwT-GE-Nfm">
+                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
+                                <color key="backgroundColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="oaQ-RP-vKL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="WorkSans-ExtraBold" family="Work Sans" pointSize="24"/>
+                                <state key="normal" title="LOGIN WITH FACEBOOK">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButtonPressed:" destination="KCh-eM-WWE" eventType="touchUpInside" id="6ly-ET-nuX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="vwT-GE-Nfm" secondAttribute="trailing" constant="-20" id="6M9-8o-n33"/>
+                            <constraint firstItem="vE0-OG-u8x" firstAttribute="centerX" secondItem="ujm-iQ-zXV" secondAttribute="centerX" id="Bt0-V7-oLH"/>
+                            <constraint firstItem="vE0-OG-u8x" firstAttribute="centerY" secondItem="ujm-iQ-zXV" secondAttribute="centerY" id="NaY-kW-Ahj"/>
+                            <constraint firstItem="eXM-4n-1hG" firstAttribute="top" secondItem="vwT-GE-Nfm" secondAttribute="bottom" id="hzk-7g-CEa"/>
+                            <constraint firstItem="vwT-GE-Nfm" firstAttribute="leading" secondItem="ujm-iQ-zXV" secondAttribute="leadingMargin" constant="-20" id="jwf-vh-vhS"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Op4-it-cAb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2132" y="-43"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="cst-Wq-Lje">

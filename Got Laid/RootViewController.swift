@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
     lazy var orderedViewControllers: [UIViewController] = {
@@ -19,13 +20,26 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.whiteColor()
-        
         dataSource = self
         
         let buttonViewController = orderedViewControllers[1]
         setViewControllers([buttonViewController], direction: .Forward, animated: true, completion: nil)
+        
+        FIRAuth.auth()?.addAuthStateDidChangeListener {
+            (auth, user) in
+            
+            if user != nil {
+                print("user logined")
+            } else {
+                print("no user logined")
+                if let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") {
+                    self.presentViewController(loginViewController, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
+    // MARK: - Page View Controller Data Source
     func pageViewController(pageViewController: UIPageViewController,
                             viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         guard let index = orderedViewControllers.indexOf(viewController) else {

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FirebaseAuth
 
 class ButtonViewController: UIViewController {
     @IBOutlet weak var laidButton: UIButton!
@@ -26,6 +28,25 @@ class ButtonViewController: UIViewController {
         
         laidButton.titleLabel?.textAlignment = .Center
         laidButton.layer.cornerRadius = 108
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(laidButtonCancel))
+        view.addGestureRecognizer(tap)
+    }
+    
+    // MARK: - Logout
+    @IBAction func logoutButtonPressed(sender: AnyObject) {
+        do {
+            try FIRAuth.auth()?.signOut()
+        } catch _ {}
+        FBSDKLoginManager().logOut()
+    }
+    
+    // MARK: - Laid Button
+    func laidButtonCancel(sender: AnyObject) {
+        if !initialState {
+            initialState = true
+            laidButton.setTitle("I JUST\nGOT LAID", forState: .Normal)
+        }
     }
     
     @IBAction func laidButtonPressed(sender: AnyObject) {
@@ -46,6 +67,7 @@ class ButtonViewController: UIViewController {
         }
     }
     
+    // MARK: - Label Animations
     func displayWhooopLabel() {
         whooopLabel.alpha = 0.0
         whooopLabel.hidden = false
