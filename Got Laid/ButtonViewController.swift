@@ -11,7 +11,7 @@ import FBSDKLoginKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class ButtonViewController: UIViewController, FacebookDataFriendsDelegate {
+class ButtonViewController: UIViewController, FacebookDataSelectedFriendsDelegate {
     @IBOutlet weak var laidButton: UIButton!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var whooopLabel: UILabel!
@@ -19,7 +19,7 @@ class ButtonViewController: UIViewController, FacebookDataFriendsDelegate {
     let animationTime = 0.3
     let delay = 3.0
     
-    var numberOfFriends = FacebookData.sharedInstance.friends.count
+    var numberOfFriends = FacebookData.sharedInstance.selectedFriends.count
     
     var initialState = true
     
@@ -36,7 +36,7 @@ class ButtonViewController: UIViewController, FacebookDataFriendsDelegate {
         
         refreshLabel()
         
-        FacebookData.sharedInstance.friendsDelegates.append(self)
+        FacebookData.sharedInstance.selectedFriendsDelegate = self
     }
     
     // MARK: - Status Bar
@@ -45,7 +45,7 @@ class ButtonViewController: UIViewController, FacebookDataFriendsDelegate {
     }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return .Slide
+        return RootViewController.statusBarAnimation
     }
     
     // MARK: - Logout
@@ -118,10 +118,10 @@ class ButtonViewController: UIViewController, FacebookDataFriendsDelegate {
         }
     }
     
-    // MARK: - Facebook Data
-    func friendsDidDownload() {
-        if numberOfFriends != FacebookData.sharedInstance.friends.count {
-            numberOfFriends = FacebookData.sharedInstance.friends.count
+    // MARK: - Data
+    func numberOfSelectedFriendsDidChange() {
+        if numberOfFriends != FacebookData.sharedInstance.selectedFriends.count {
+            numberOfFriends = FacebookData.sharedInstance.selectedFriends.count
             refreshLabel()
         }
     }
@@ -132,7 +132,7 @@ class ButtonViewController: UIViewController, FacebookDataFriendsDelegate {
             let post = ["user_id": FacebookData.sharedInstance.userID,
                         "user_first_name": FacebookData.sharedInstance.userFirstName,
                         "user_display_name": FacebookData.sharedInstance.userName,
-                        "timestamp": NSDate().timeIntervalSince1970]
+                        "timestamp": Int(NSDate().timeIntervalSince1970)]
             reference.setValue(post)
         }
     }

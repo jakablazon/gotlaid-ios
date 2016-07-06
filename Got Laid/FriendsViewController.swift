@@ -14,7 +14,7 @@ class FriendsViewController: UITableViewController, FacebookDataFriendsDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FacebookData.sharedInstance.friendsDelegates.append(self)
+        FacebookData.sharedInstance.friendsDelegate = self
     }
     
     // MARK: - Status Bar
@@ -23,7 +23,7 @@ class FriendsViewController: UITableViewController, FacebookDataFriendsDelegate 
     }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return .Slide
+        return RootViewController.statusBarAnimation
     }
     
     // MARK: - Table View
@@ -67,11 +67,13 @@ class FriendsViewController: UITableViewController, FacebookDataFriendsDelegate 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedId = FacebookData.sharedInstance.friends[indexPath.row - numberOfStaticCells].id
         FacebookData.sharedInstance.selectedFriends.insert(selectedId)
+        FacebookData.sharedInstance.selectedFriendsDelegate?.numberOfSelectedFriendsDidChange()
     }
     
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedId = FacebookData.sharedInstance.friends[indexPath.row - numberOfStaticCells].id
         FacebookData.sharedInstance.selectedFriends.remove(selectedId)
+        FacebookData.sharedInstance.selectedFriendsDelegate?.numberOfSelectedFriendsDidChange()
     }
     
     override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
@@ -95,6 +97,7 @@ class FriendsViewController: UITableViewController, FacebookDataFriendsDelegate 
             }
             
             FacebookData.sharedInstance.selectedFriends.removeAll()
+            FacebookData.sharedInstance.selectedFriendsDelegate?.numberOfSelectedFriendsDidChange()
             
             return nil
         } else if indexPath.row == 1 {
@@ -103,6 +106,8 @@ class FriendsViewController: UITableViewController, FacebookDataFriendsDelegate 
                 let friend = FacebookData.sharedInstance.friends[i - numberOfStaticCells]
                 FacebookData.sharedInstance.selectedFriends.insert(friend.id)
             }
+            
+            FacebookData.sharedInstance.selectedFriendsDelegate?.numberOfSelectedFriendsDidChange()
             
             return nil
         }

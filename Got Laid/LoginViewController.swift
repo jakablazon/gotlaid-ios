@@ -40,6 +40,8 @@ class LoginViewController: UIViewController {
                                                 if error != nil {
                                                     self.displayError("Could not sign in.")
                                                 } else {
+                                                    FacebookData.sharedInstance.getFbProfileData()
+                                                    FacebookData.sharedInstance.getFriends()
                                                     self.dismissViewControllerAnimated(true, completion: nil)
                                                 }
                                             }

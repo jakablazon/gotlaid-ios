@@ -9,4 +9,6 @@ target 'Got Laid' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKShareKit'
   pod 'FBSDKLoginKit'
+
+  pod 'DateTools'
 end

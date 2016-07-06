@@ -14,6 +14,7 @@
             <string>WorkSans-ExtraBold</string>
             <string>WorkSans-ExtraBold</string>
             <string>WorkSans-ExtraBold</string>
+            <string>WorkSans-ExtraBold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -228,22 +229,38 @@
             </objects>
             <point key="canvasLocation" x="2132" y="-43"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Feed View Controller-->
         <scene sceneID="cst-Wq-Lje">
             <objects>
-                <tableViewController storyboardIdentifier="FeedViewController" id="ZHA-UM-Pud" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="hkU-oF-kys">
+                <tableViewController storyboardIdentifier="FeedViewController" id="ZHA-UM-Pud" customClass="FeedViewController" customModule="Got_Laid" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" id="hkU-oF-kys">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" id="JYh-ld-3fO">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedCell" id="JYh-ld-3fO" customClass="FeedCell" customModule="Got_Laid" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JYh-ld-3fO" id="8HJ-Sd-OQo">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GcD-Nz-9So">
+                                            <rect key="frame" x="8" y="10" width="584" height="29"/>
+                                            <fontDescription key="fontDescription" name="WorkSans-ExtraBold" family="Work Sans" pointSize="24"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="GcD-Nz-9So" firstAttribute="trailing" secondItem="8HJ-Sd-OQo" secondAttribute="trailingMargin" id="0qi-S0-MBW"/>
+                                        <constraint firstItem="GcD-Nz-9So" firstAttribute="leading" secondItem="8HJ-Sd-OQo" secondAttribute="leadingMargin" id="98c-tW-BHJ"/>
+                                        <constraint firstItem="GcD-Nz-9So" firstAttribute="centerY" secondItem="8HJ-Sd-OQo" secondAttribute="centerY" id="F1W-sf-eCM"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="mainLabel" destination="GcD-Nz-9So" id="cVW-cs-6nQ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

@@ -37,6 +37,13 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource, 
         }
     }
     
+    // MARK: - Status Bar
+    static let statusBarAnimation = UIStatusBarAnimation.Fade
+    
+    override func childViewControllerForStatusBarHidden() -> UIViewController? {
+        return viewControllers?.first
+    }
+    
     // MARK: - Page View Controller Data Source
     func pageViewController(pageViewController: UIPageViewController,
                             viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
@@ -77,9 +84,5 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource, 
         UIView.animateWithDuration(0.2) {
             self.setNeedsStatusBarAppearanceUpdate()
         }
-    }
-    
-    override func childViewControllerForStatusBarHidden() -> UIViewController? {
-        return viewControllers?.first
     }
 }

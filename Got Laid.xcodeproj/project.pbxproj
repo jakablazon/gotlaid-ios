@@ -20,6 +20,8 @@
 		99CA258F1D2C018F003CD34D /* FacebookData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CA258E1D2C018F003CD34D /* FacebookData.swift */; };
 		99CA25B71D2D0B41003CD34D /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CA25B61D2D0B41003CD34D /* FriendsViewController.swift */; };
 		99CA25B91D2D0C30003CD34D /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CA25B81D2D0C30003CD34D /* FriendCell.swift */; };
+		99CA25BF1D2D6715003CD34D /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CA25BE1D2D6715003CD34D /* FeedViewController.swift */; };
+		99CA25C11D2D6735003CD34D /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CA25C01D2D6735003CD34D /* FeedCell.swift */; };
 		B1994542E1C3F7DD194DDCB2 /* Pods_Got_Laid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446D284555CB602593C2FC6B /* Pods_Got_Laid.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,8 @@
 		99CA258E1D2C018F003CD34D /* FacebookData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookData.swift; sourceTree = "<group>"; };
 		99CA25B61D2D0B41003CD34D /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		99CA25B81D2D0C30003CD34D /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		99CA25BE1D2D6715003CD34D /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		99CA25C01D2D6735003CD34D /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		D47FEB83083A35FFB478311F /* Pods-Got Laid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Got Laid.release.xcconfig"; path = "Pods/Target Support Files/Pods-Got Laid/Pods-Got Laid.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,6 +90,8 @@
 				99CA256D1D2AFE06003CD34D /* ButtonViewController.swift */,
 				99CA25B61D2D0B41003CD34D /* FriendsViewController.swift */,
 				99CA25B81D2D0C30003CD34D /* FriendCell.swift */,
+				99CA25BE1D2D6715003CD34D /* FeedViewController.swift */,
+				99CA25C01D2D6735003CD34D /* FeedCell.swift */,
 				99CA258E1D2C018F003CD34D /* FacebookData.swift */,
 				99CA256F1D2AFE06003CD34D /* Main.storyboard */,
 				99CA25721D2AFE06003CD34D /* Assets.xcassets */,
@@ -252,7 +258,9 @@
 				99CA256E1D2AFE06003CD34D /* ButtonViewController.swift in Sources */,
 				99CA256C1D2AFE06003CD34D /* AppDelegate.swift in Sources */,
 				99CA25B71D2D0B41003CD34D /* FriendsViewController.swift in Sources */,
+				99CA25BF1D2D6715003CD34D /* FeedViewController.swift in Sources */,
 				99CA258B1D2BA13D003CD34D /* RootViewController.swift in Sources */,
+				99CA25C11D2D6735003CD34D /* FeedCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

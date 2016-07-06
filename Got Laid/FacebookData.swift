@@ -14,6 +14,10 @@ protocol FacebookDataFriendsDelegate {
     func friendsDidDownload()
 }
 
+protocol FacebookDataSelectedFriendsDelegate {
+    func numberOfSelectedFriendsDidChange()
+}
+
 struct Friend {
     var name: String
     var id: String
@@ -37,21 +41,28 @@ struct Friend {
 final class FacebookData {
     static let sharedInstance = FacebookData()
     
-    let userID = FBSDKProfile.currentProfile().userID!
-    let userName = FBSDKProfile.currentProfile().name!
-    let userFirstName = FBSDKProfile.currentProfile().firstName!
+    var userID = ""
+    var userName = ""
+    var userFirstName = ""
     
     var friends = [Friend]()
     var selectedFriends = Set<String>()
     
     var downloading = false
     
-    var friendsDelegates = [FacebookDataFriendsDelegate]()
-    
+    var friendsDelegate: FacebookDataFriendsDelegate?
+    var selectedFriendsDelegate: FacebookDataSelectedFriendsDelegate?
     
     init() {
         load()
         getFriends()
+        getFbProfileData()
+    }
+    
+    func getFbProfileData() {
+        userID = FBSDKProfile.currentProfile()?.userID ?? ""
+        userName = FBSDKProfile.currentProfile()?.name ?? ""
+        userFirstName = FBSDKProfile.currentProfile()?.firstName ?? ""
     }
     
     func getFriends() {
@@ -86,11 +97,7 @@ final class FacebookData {
             }
             
             self.downloading = false
-            dispatch_async(dispatch_get_main_queue()) {
-                for delegate in self.friendsDelegates {
-                    delegate.friendsDidDownload()
-                }
-            }
+            self.friendsDelegate?.friendsDidDownload()
         }
     }
     
