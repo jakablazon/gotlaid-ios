@@ -10,5 +10,5 @@ target 'Got Laid' do
   pod 'FBSDKShareKit'
   pod 'FBSDKLoginKit'
 
-  pod 'DateTools'
+  pod 'DateTools', :git => 'https://github.com/DzinVision/DateTools.git'
 end
