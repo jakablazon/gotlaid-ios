@@ -12,25 +12,94 @@
             <string>WorkSans-ExtraBold</string>
             <string>WorkSans-ExtraBold</string>
             <string>WorkSans-ExtraBold</string>
+            <string>WorkSans-ExtraBold</string>
+            <string>WorkSans-ExtraBold</string>
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Table View Controller-->
+        <!--Friends View Controller-->
         <scene sceneID="45b-sa-2L7">
             <objects>
-                <tableViewController storyboardIdentifier="FriendsViewController" id="kfx-Q9-51A" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rAa-qL-QDF">
+                <tableViewController storyboardIdentifier="FriendsViewController" id="kfx-Q9-51A" customClass="FriendsViewController" customModule="Got_Laid" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="rAa-qL-QDF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" id="TCl-I7-gnC">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FriendCellTop" rowHeight="90" id="iPC-md-Er1" customClass="FriendCell" customModule="Got_Laid" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TCl-I7-gnC" id="2Z8-28-IKT">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iPC-md-Er1" id="yvA-YX-YgT">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6QK-OI-waf">
+                                            <rect key="frame" x="5" y="5" width="590" height="80"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTc-d7-hk2">
+                                                    <rect key="frame" x="188" y="20" width="214" height="40"/>
+                                                    <fontDescription key="fontDescription" name="WorkSans-ExtraBold" family="Work Sans" pointSize="34"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="RTc-d7-hk2" firstAttribute="centerY" secondItem="6QK-OI-waf" secondAttribute="centerY" id="f7P-6f-w5R"/>
+                                                <constraint firstItem="RTc-d7-hk2" firstAttribute="centerX" secondItem="6QK-OI-waf" secondAttribute="centerX" id="nGW-WW-JoR"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="6QK-OI-waf" secondAttribute="bottom" constant="5" id="EEp-Bw-pFj"/>
+                                        <constraint firstAttribute="trailing" secondItem="6QK-OI-waf" secondAttribute="trailing" constant="5" id="QwV-hb-Dt7"/>
+                                        <constraint firstItem="6QK-OI-waf" firstAttribute="top" secondItem="yvA-YX-YgT" secondAttribute="top" constant="5" id="Scu-Kb-G28"/>
+                                        <constraint firstItem="6QK-OI-waf" firstAttribute="leading" secondItem="yvA-YX-YgT" secondAttribute="leading" constant="5" id="pdf-rX-MQN"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="containerView" destination="6QK-OI-waf" id="D3l-ee-Sdd"/>
+                                    <outlet property="nameLabel" destination="RTc-d7-hk2" id="VIS-Ut-8D8"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="90" id="znz-lX-Eu4" customClass="FriendCell" customModule="Got_Laid" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="118" width="600" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="znz-lX-Eu4" id="rsM-x4-k8k">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gRQ-9r-1KW">
+                                            <rect key="frame" x="5" y="0.0" width="590" height="85"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ju1-iX-Rcd">
+                                                    <rect key="frame" x="8" y="22" width="574" height="40"/>
+                                                    <fontDescription key="fontDescription" name="WorkSans-ExtraBold" family="Work Sans" pointSize="34"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="ju1-iX-Rcd" firstAttribute="leading" secondItem="gRQ-9r-1KW" secondAttribute="leading" constant="8" id="UsZ-QR-AUP"/>
+                                                <constraint firstAttribute="trailing" secondItem="ju1-iX-Rcd" secondAttribute="trailing" constant="8" id="dxp-MT-mof"/>
+                                                <constraint firstItem="ju1-iX-Rcd" firstAttribute="centerY" secondItem="gRQ-9r-1KW" secondAttribute="centerY" id="yGR-Ok-R3J"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="gRQ-9r-1KW" firstAttribute="top" secondItem="rsM-x4-k8k" secondAttribute="top" id="2lO-OW-XbQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="gRQ-9r-1KW" secondAttribute="trailing" constant="5" id="MvW-Ny-fve"/>
+                                        <constraint firstAttribute="bottom" secondItem="gRQ-9r-1KW" secondAttribute="bottom" constant="5" id="bwk-MB-vlG"/>
+                                        <constraint firstItem="gRQ-9r-1KW" firstAttribute="leading" secondItem="rsM-x4-k8k" secondAttribute="leading" constant="5" id="sbo-70-U97"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="containerView" destination="gRQ-9r-1KW" id="ASr-f7-xIu"/>
+                                    <outlet property="nameLabel" destination="ju1-iX-Rcd" id="TBK-yf-G1Z"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -41,7 +110,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2w-O2-Tp0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-128" y="722"/>
+            <point key="canvasLocation" x="-284" y="717"/>
         </scene>
         <!--Button View Controller-->
         <scene sceneID="tne-QT-ifu">

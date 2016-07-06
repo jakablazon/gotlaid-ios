@@ -12,6 +12,16 @@ import FBSDKLoginKit
 import FirebaseAuth
 
 class LoginViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        FBSDKProfile.enableUpdatesOnAccessTokenChange(true)
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return false
+    }
+    
     @IBAction func loginButtonPressed(sender: AnyObject) {
         let login = FBSDKLoginManager()
         login.logInWithReadPermissions(["public_profile", "email", "user_friends"],

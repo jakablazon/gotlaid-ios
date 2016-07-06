@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 
-class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
+class RootViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     lazy var orderedViewControllers: [UIViewController] = {
         return [self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController"),
             self.storyboard!.instantiateViewControllerWithIdentifier("ButtonViewController"),
@@ -21,6 +21,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         
         view.backgroundColor = UIColor.whiteColor()
         dataSource = self
+        delegate = self
         
         let buttonViewController = orderedViewControllers[1]
         setViewControllers([buttonViewController], direction: .Forward, animated: true, completion: nil)
@@ -28,10 +29,7 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         FIRAuth.auth()?.addAuthStateDidChangeListener {
             (auth, user) in
             
-            if user != nil {
-                print("user logined")
-            } else {
-                print("no user logined")
+            if user == nil {
                 if let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") {
                     self.presentViewController(loginViewController, animated: true, completion: nil)
                 }
@@ -66,5 +64,22 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource {
         }
         
         return orderedViewControllers[nextIndex]
+    }
+    
+    // MARK: - Page View Controller Delegate
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
+        if !completed {
+            return
+        }
+        
+        UIView.animateWithDuration(0.2) {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
+    override func childViewControllerForStatusBarHidden() -> UIViewController? {
+        return viewControllers?.first
     }
 }

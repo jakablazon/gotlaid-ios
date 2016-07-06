@@ -9,8 +9,9 @@
 import UIKit
 import FBSDKLoginKit
 import FirebaseAuth
+import FirebaseDatabase
 
-class ButtonViewController: UIViewController {
+class ButtonViewController: UIViewController, FacebookDataFriendsDelegate {
     @IBOutlet weak var laidButton: UIButton!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var whooopLabel: UILabel!
@@ -18,10 +19,11 @@ class ButtonViewController: UIViewController {
     let animationTime = 0.3
     let delay = 3.0
     
-    // TODO: implement number of friends
-    let numberOfFriends = 345
+    var numberOfFriends = FacebookData.sharedInstance.friends.count
     
     var initialState = true
+    
+    let databaseRefrence = FIRDatabase.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,19 @@ class ButtonViewController: UIViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(laidButtonCancel))
         view.addGestureRecognizer(tap)
+        
+        refreshLabel()
+        
+        FacebookData.sharedInstance.friendsDelegates.append(self)
+    }
+    
+    // MARK: - Status Bar
+    override func prefersStatusBarHidden() -> Bool {
+        return false
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return .Slide
     }
     
     // MARK: - Logout
@@ -54,7 +69,8 @@ class ButtonViewController: UIViewController {
             laidButton.setTitle("YOU\nSURE?", forState: .Normal)
             initialState = false
         } else {
-            // TODO: push got laid to server
+            pushToServer()
+            
             displayWhooopLabel()
             
             let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
@@ -91,6 +107,33 @@ class ButtonViewController: UIViewController {
                                     self.whooopLabel.hidden = true
         })
         
-        self.infoLabel.text = "LET \(numberOfFriends) OF YOUR\nFRINDS KNOW"
+        self.infoLabel.text = "LET \(numberOfFriends) OF YOUR\nFRIENDS KNOW"
+    }
+    
+    func refreshLabel() {
+        if whooopLabel.hidden {
+            infoLabel.text = "LET \(numberOfFriends) OF YOUR\nFRIENDS KNOW"
+        } else {
+            infoLabel.text = "\(numberOfFriends) FRIENDS\nNOTIFIED"
+        }
+    }
+    
+    // MARK: - Facebook Data
+    func friendsDidDownload() {
+        if numberOfFriends != FacebookData.sharedInstance.friends.count {
+            numberOfFriends = FacebookData.sharedInstance.friends.count
+            refreshLabel()
+        }
+    }
+    
+    func pushToServer() {
+        for friendId in FacebookData.sharedInstance.selectedFriends {
+            let reference = databaseRefrence.child(friendId).childByAutoId()
+            let post = ["user_id": FacebookData.sharedInstance.userID,
+                        "user_first_name": FacebookData.sharedInstance.userFirstName,
+                        "user_display_name": FacebookData.sharedInstance.userName,
+                        "timestamp": NSDate().timeIntervalSince1970]
+            reference.setValue(post)
+        }
     }
 }
