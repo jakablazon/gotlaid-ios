@@ -233,20 +233,20 @@
         <scene sceneID="cst-Wq-Lje">
             <objects>
                 <tableViewController storyboardIdentifier="FeedViewController" id="ZHA-UM-Pud" customClass="FeedViewController" customModule="Got_Laid" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" id="hkU-oF-kys">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="hkU-oF-kys">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedCell" id="JYh-ld-3fO" customClass="FeedCell" customModule="Got_Laid" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JYh-ld-3fO" id="8HJ-Sd-OQo">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GcD-Nz-9So">
-                                            <rect key="frame" x="8" y="10" width="584" height="29"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label neki" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GcD-Nz-9So">
+                                            <rect key="frame" x="8" y="19" width="584" height="62"/>
                                             <fontDescription key="fontDescription" name="WorkSans-ExtraBold" family="Work Sans" pointSize="24"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -255,7 +255,8 @@
                                     <constraints>
                                         <constraint firstItem="GcD-Nz-9So" firstAttribute="trailing" secondItem="8HJ-Sd-OQo" secondAttribute="trailingMargin" id="0qi-S0-MBW"/>
                                         <constraint firstItem="GcD-Nz-9So" firstAttribute="leading" secondItem="8HJ-Sd-OQo" secondAttribute="leadingMargin" id="98c-tW-BHJ"/>
-                                        <constraint firstItem="GcD-Nz-9So" firstAttribute="centerY" secondItem="8HJ-Sd-OQo" secondAttribute="centerY" id="F1W-sf-eCM"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="GcD-Nz-9So" secondAttribute="bottom" constant="11" id="BjC-wp-n9h"/>
+                                        <constraint firstItem="GcD-Nz-9So" firstAttribute="top" secondItem="8HJ-Sd-OQo" secondAttribute="topMargin" constant="11" id="MMo-Jf-hFD"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

@@ -18,7 +18,7 @@ protocol FacebookDataSelectedFriendsDelegate {
     func numberOfSelectedFriendsDidChange()
 }
 
-struct Friend {
+struct Friend: Hashable {
     var name: String
     var id: String
     
@@ -36,7 +36,16 @@ struct Friend {
         return ["name": name,
                 "id": id]
     }
+    
+    var hashValue: Int {
+        return id.hashValue
+    }
 }
+
+func ==(lhs: Friend, rhs: Friend) -> Bool {
+    return lhs.id == rhs.id
+}
+
 
 final class FacebookData {
     static let sharedInstance = FacebookData()
@@ -82,22 +91,33 @@ final class FacebookData {
             let dictionary = result as! [String: AnyObject]
             let data = dictionary["data"] as! [[String: String]]
             
-            var friendsSet = Set<String>()
+            var friendsIdSet = Set<String>()
+            var newFriends = [Friend]()
             
-            self.friends.removeAll()
             for dataEntry in data {
                 let friend = Friend(dictionary: dataEntry)
-                self.friends.append(friend)
-                friendsSet.insert(friend.id)
+                newFriends.append(friend)
+                friendsIdSet.insert(friend.id)
             }
             
-            let removedFriends = self.selectedFriends.subtract(friendsSet)
+            let removedFriends = self.selectedFriends.subtract(friendsIdSet)
             for removedFriend in removedFriends {
                 self.selectedFriends.remove(removedFriend)
             }
             
+            let newFriendsSet = Set(newFriends)
+            let oldFriendsSet = Set(self.friends)
+            
+            let addedFriends = newFriendsSet.subtract(oldFriendsSet)
+            for addedFriend in addedFriends {
+                self.selectedFriends.insert(addedFriend.id)
+            }
+            
+            self.friends = newFriends
+            
             self.downloading = false
             self.friendsDelegate?.friendsDidDownload()
+            self.selectedFriendsDelegate?.numberOfSelectedFriendsDidChange()
         }
     }
     

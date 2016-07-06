@@ -23,15 +23,21 @@ struct Data {
 }
 
 class FeedViewController: UITableViewController {
-    let databaseRefrence = FIRDatabase.database().reference()
-    
     var data = [Data]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        databaseRefrence.child(FacebookData.sharedInstance.userID)
-            .queryLimitedToLast(100).observeEventType(.ChildAdded, withBlock: databaseObserver)
+        let databaseReference = FIRDatabase.database().reference()
+        let readReference = databaseReference.child(FacebookData.sharedInstance.userID)
+        
+        readReference.queryLimitedToLast(100).observeEventType(.ChildAdded, withBlock: databaseAddObserver)
+        readReference.queryLimitedToLast(100).observeEventType(.ChildRemoved, withBlock: databaseRemoveObserver)
+        
+        readReference.keepSynced(true)
+        
+        NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(updateTableView),
+                                               userInfo: nil, repeats: true)
     }
 
     // MARK: - Status Bar
@@ -57,21 +63,38 @@ class FeedViewController: UITableViewController {
         
         let dataEntry = data[indexPath.row]
         
-        let timeString = dataEntry.time.shortTimeAgoSinceNow()
-            .stringByReplacingOccurrencesOfString("m", withString: "min")
-            .uppercaseString
+        let timeString = dataEntry.time.timeAgoSinceNow().uppercaseString
         
-        cell.mainLabel.text = "\(dataEntry.name) GOT LAID! \(timeString) AGO"
+        cell.mainLabel.text = "\(dataEntry.name) GOT LAID! \(timeString)"
         
         return cell
     }
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 50
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
 
     // MARK: - Data
-    func databaseObserver(snapshot: FIRDataSnapshot) {
+    func databaseAddObserver(snapshot: FIRDataSnapshot) {
         let dataEntry = Data(dictionary: snapshot.value as! [String: AnyObject])
         data.insert(dataEntry, atIndex: 0)
         
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    }
+    
+    func databaseRemoveObserver(snapshot: FIRDataSnapshot) {
+        data.removeLast()
+        
+        let indexPath = NSIndexPath(forRow: data.count, inSection: 0)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    }
+    
+    func updateTableView() {
+        tableView.reloadData()
     }
 }

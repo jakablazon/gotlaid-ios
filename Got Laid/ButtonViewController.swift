@@ -54,6 +54,9 @@ class ButtonViewController: UIViewController, FacebookDataSelectedFriendsDelegat
             try FIRAuth.auth()?.signOut()
         } catch _ {}
         FBSDKLoginManager().logOut()
+        
+        FacebookData.sharedInstance.friends.removeAll()
+        FacebookData.sharedInstance.selectedFriends.removeAll()
     }
     
     // MARK: - Laid Button
