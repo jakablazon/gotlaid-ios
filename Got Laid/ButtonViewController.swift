@@ -81,7 +81,12 @@ class ButtonViewController: UIViewController, FacebookDataSelectedFriendsDelegat
                 self.hideWhooopLabel()
             }
             
-            self.infoLabel.text = "\(numberOfFriends) FRIENDS\nNOTIFIED"
+            if numberOfFriends == 1 {
+                infoLabel.text = "\(numberOfFriends) FRIEND\nNOTIFIED"
+            } else {
+                infoLabel.text = "\(numberOfFriends) FRIENDS\nNOTIFIED"
+            }
+            
             initialState = true
         }
     }
@@ -110,14 +115,18 @@ class ButtonViewController: UIViewController, FacebookDataSelectedFriendsDelegat
                                     self.whooopLabel.hidden = true
         })
         
-        self.infoLabel.text = "LET \(numberOfFriends) OF YOUR\nFRIENDS KNOW"
+        infoLabel.text = "LET \(numberOfFriends) OF YOUR\nFRIENDS KNOW"
     }
     
     func refreshLabel() {
         if whooopLabel.hidden {
             infoLabel.text = "LET \(numberOfFriends) OF YOUR\nFRIENDS KNOW"
         } else {
-            infoLabel.text = "\(numberOfFriends) FRIENDS\nNOTIFIED"
+            if numberOfFriends == 1 {
+                infoLabel.text = "\(numberOfFriends) FRIEND\nNOTIFIED"
+            } else {
+                infoLabel.text = "\(numberOfFriends) FRIENDS\nNOTIFIED"
+            }
         }
     }
     
