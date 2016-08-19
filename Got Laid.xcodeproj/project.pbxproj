@@ -141,6 +141,7 @@
 				99CA25661D2AFE06003CD34D /* Resources */,
 				C3B0FC87C51A46A8FC8B5F39 /* [CP] Embed Pods Frameworks */,
 				473DA67EE3ED0FA70646CD8C /* [CP] Copy Pods Resources */,
+				3EB822AF1D676960005051EC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -163,6 +164,7 @@
 				TargetAttributes = {
 					99CA25671D2AFE06003CD34D = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 7G58AP3AJX;
 					};
 				};
 			};
@@ -200,6 +202,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3EB822AF1D676960005051EC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 18cf1a59e5495aa51ff8e8f6d4f5300fad080f20 f532968c2c531f1902f17829210a620be1b145acbe0e7eb18217559821673bbf";
+		};
 		473DA67EE3ED0FA70646CD8C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -376,11 +391,13 @@
 			baseConfigurationReference = 92C41CE478FE1A50F3845A8C /* Pods-Got Laid.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Got Laid/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gotlaid.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "895b42fe-ca3e-44d4-92d3-3ba81f91ff0e";
 			};
 			name = Debug;
 		};
@@ -389,11 +406,13 @@
 			baseConfigurationReference = D47FEB83083A35FFB478311F /* Pods-Got Laid.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Got Laid/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gotlaid.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "895b42fe-ca3e-44d4-92d3-3ba81f91ff0e";
 			};
 			name = Release;
 		};
