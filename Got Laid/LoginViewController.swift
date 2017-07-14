@@ -15,34 +15,34 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FBSDKProfile.enableUpdatesOnAccessTokenChange(true)
+        FBSDKProfile.enableUpdates(onAccessTokenChange: true)
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return false
     }
     
-    @IBAction func loginButtonPressed(sender: AnyObject) {
+    @IBAction func loginButtonPressed(_ sender: AnyObject) {
         let login = FBSDKLoginManager()
-        login.logInWithReadPermissions(["public_profile", "email", "user_friends"],
-                                       fromViewController: self, handler: {
+        login.logIn(withReadPermissions: ["public_profile", "email", "user_friends"],
+                                       from: self, handler: {
                                         (result, error) in
                                         if error != nil {
                                             self.displayError("Could not sign in.")
-                                        } else if result.isCancelled {
+                                        } else if (result?.isCancelled)! {
                                             self.displayError("You must sign in to use the app.")
                                         } else {
-                                            let credential = FIRFacebookAuthProvider
-                                                .credentialWithAccessToken(FBSDKAccessToken.currentAccessToken()
+                                            let credential = FacebookAuthProvider
+                                                .credential(withAccessToken: FBSDKAccessToken.current()
                                                     .tokenString)
-                                            FIRAuth.auth()?.signInWithCredential(credential) {
+                                            Auth.auth().signIn(with: credential) {
                                                 (user, error) in
                                                 if error != nil {
                                                     self.displayError("Could not sign in.")
                                                 } else {
                                                     FacebookData.sharedInstance.getFbProfileData()
                                                     FacebookData.sharedInstance.getFriends()
-                                                    self.dismissViewControllerAnimated(true, completion: nil)
+                                                    self.dismiss(animated: true, completion: nil)
                                                 }
                                             }
                                         }
@@ -50,11 +50,11 @@ class LoginViewController: UIViewController {
         })
     }
     
-    func displayError(errorMessage: String) {
-        let alertController = UIAlertController(title: nil, message: errorMessage, preferredStyle: .Alert)
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+    func displayError(_ errorMessage: String) {
+        let alertController = UIAlertController(title: nil, message: errorMessage, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
         alertController.addAction(dismissAction)
         
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 }

@@ -23,12 +23,12 @@ class ButtonViewController: UIViewController, FacebookDataSelectedFriendsDelegat
     
     var initialState = true
     
-    let databaseRefrence = FIRDatabase.database().reference()
+    let databaseRefrence = Database.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        laidButton.titleLabel?.textAlignment = .Center
+        laidButton.titleLabel?.textAlignment = .center
         laidButton.layer.cornerRadius = 108
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(laidButtonCancel))
@@ -40,18 +40,18 @@ class ButtonViewController: UIViewController, FacebookDataSelectedFriendsDelegat
     }
     
     // MARK: - Status Bar
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return false
     }
     
-    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
         return RootViewController.statusBarAnimation
     }
     
     // MARK: - Logout
-    @IBAction func logoutButtonPressed(sender: AnyObject) {
+    @IBAction func logoutButtonPressed(_ sender: AnyObject) {
         do {
-            try FIRAuth.auth()?.signOut()
+            try Auth.auth().signOut()
         } catch _ {}
         FBSDKLoginManager().logOut()
         
@@ -60,24 +60,24 @@ class ButtonViewController: UIViewController, FacebookDataSelectedFriendsDelegat
     }
     
     // MARK: - Laid Button
-    func laidButtonCancel(sender: AnyObject) {
+    func laidButtonCancel(_ sender: AnyObject) {
         if !initialState {
             initialState = true
-            laidButton.setTitle("I JUST\nGOT LAID", forState: .Normal)
+            laidButton.setTitle("I JUST\nGOT LAID", for: UIControlState())
         }
     }
     
-    @IBAction func laidButtonPressed(sender: AnyObject) {
+    @IBAction func laidButtonPressed(_ sender: AnyObject) {
         if initialState {
-            laidButton.setTitle("YOU\nSURE?", forState: .Normal)
+            laidButton.setTitle("YOU\nSURE?", for: UIControlState())
             initialState = false
         } else {
             pushToServer()
             
             displayWhooopLabel()
             
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
+            let delayTime = DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: delayTime) {
                 self.hideWhooopLabel()
             }
             
@@ -94,32 +94,32 @@ class ButtonViewController: UIViewController, FacebookDataSelectedFriendsDelegat
     // MARK: - Label Animations
     func displayWhooopLabel() {
         whooopLabel.alpha = 0.0
-        whooopLabel.hidden = false
-        UIView.animateWithDuration(animationTime,
+        whooopLabel.isHidden = false
+        UIView.animate(withDuration: animationTime,
                                    animations: {
                                     self.whooopLabel.alpha = 1.0
                                     self.laidButton.alpha = 0.0
                                    }, completion: {_ in
-                                    self.laidButton.hidden = true
+                                    self.laidButton.isHidden = true
         })
     }
     
     func hideWhooopLabel() {
-        laidButton.hidden = false
-        laidButton.setTitle("I JUST\nGOT LAID", forState: .Normal)
-        UIView.animateWithDuration(animationTime,
+        laidButton.isHidden = false
+        laidButton.setTitle("I JUST\nGOT LAID", for: UIControlState())
+        UIView.animate(withDuration: animationTime,
                                    animations: {
                                     self.whooopLabel.alpha = 0.0
                                     self.laidButton.alpha = 1.0
                                   }, completion: {_ in
-                                    self.whooopLabel.hidden = true
+                                    self.whooopLabel.isHidden = true
         })
         
         infoLabel.text = "LET \(numberOfFriends) OF YOUR\nFRIENDS KNOW"
     }
     
     func refreshLabel() {
-        if whooopLabel.hidden {
+        if whooopLabel.isHidden {
             infoLabel.text = "LET \(numberOfFriends) OF YOUR\nFRIENDS KNOW"
         } else {
             if numberOfFriends == 1 {
@@ -144,7 +144,7 @@ class ButtonViewController: UIViewController, FacebookDataSelectedFriendsDelegat
             let post = ["user_id": FacebookData.sharedInstance.userID,
                         "user_first_name": FacebookData.sharedInstance.userFirstName,
                         "user_display_name": FacebookData.sharedInstance.userName,
-                        "timestamp": Int(NSDate().timeIntervalSince1970)]
+                        "timestamp": Int(Date().timeIntervalSince1970)] as [String : Any]
             reference.setValue(post)
         }
     }

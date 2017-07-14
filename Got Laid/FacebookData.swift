@@ -69,9 +69,9 @@ final class FacebookData {
     }
     
     func getFbProfileData() {
-        userID = FBSDKProfile.currentProfile()?.userID ?? ""
-        userName = FBSDKProfile.currentProfile()?.name ?? ""
-        userFirstName = FBSDKProfile.currentProfile()?.firstName ?? ""
+        userID = FBSDKProfile.current()?.userID ?? ""
+        userName = FBSDKProfile.current()?.name ?? ""
+        userFirstName = FBSDKProfile.current()?.firstName ?? ""
     }
     
     func getFriends() {
@@ -81,9 +81,9 @@ final class FacebookData {
         downloading = true
         
         let request = FBSDKGraphRequest(graphPath: "/me/friends", parameters: ["fields": "id, name"])
-        request.startWithCompletionHandler { (connection, result, error) in
+        let _ = request?.start { (connection, result, error) in
             if error != nil {
-                print(error.localizedDescription)
+                print(error?.localizedDescription as Any)
                 self.downloading = false
                 return
             }
@@ -100,7 +100,7 @@ final class FacebookData {
                 friendsIdSet.insert(friend.id)
             }
             
-            let removedFriends = self.selectedFriends.subtract(friendsIdSet)
+            let removedFriends = self.selectedFriends.subtracting(friendsIdSet)
             for removedFriend in removedFriends {
                 self.selectedFriends.remove(removedFriend)
             }
@@ -108,7 +108,7 @@ final class FacebookData {
             let newFriendsSet = Set(newFriends)
             let oldFriendsSet = Set(self.friends)
             
-            let addedFriends = newFriendsSet.subtract(oldFriendsSet)
+            let addedFriends = newFriendsSet.subtracting(oldFriendsSet)
             for addedFriend in addedFriends {
                 self.selectedFriends.insert(addedFriend.id)
             }
@@ -122,44 +122,44 @@ final class FacebookData {
     }
     
     func load() {
-        let documentsPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
-            .UserDomainMask,
+        let documentsPath = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory,
+            .userDomainMask,
             true).first!)
         
-        let friendsPath = documentsPath.URLByAppendingPathComponent("friends.plist")
-        let selectedFriendsPath = documentsPath.URLByAppendingPathComponent("selected_friends.plist")
+        let friendsPath = documentsPath.appendingPathComponent("friends.plist")
+        let selectedFriendsPath = documentsPath.appendingPathComponent("selected_friends.plist")
         
         friends.removeAll()
         
-        if let rawFriends = NSArray(contentsOfURL: friendsPath) as? [[String: String]] {
+        if let rawFriends = NSArray(contentsOf: friendsPath) as? [[String: String]] {
             for rawFriend in rawFriends {
                 let friend = Friend(dictionary: rawFriend)
                 friends.append(friend)
             }
             
-            friends.sortInPlace({$0.name < $1.name})
+            friends.sort(by: {$0.name < $1.name})
         }
         
-        if let rawSelectedFriends = NSArray(contentsOfURL: selectedFriendsPath) as? [String] {
+        if let rawSelectedFriends = NSArray(contentsOf: selectedFriendsPath) as? [String] {
             selectedFriends = Set(rawSelectedFriends)
         }
     }
     
     func save() {
-        let documentsPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
-            .UserDomainMask,
+        let documentsPath = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory,
+            .userDomainMask,
             true).first!)
         
-        let friendsPath = documentsPath.URLByAppendingPathComponent("friends.plist")
-        let selectedFriendsPath = documentsPath.URLByAppendingPathComponent("selected_friends.plist")
+        let friendsPath = documentsPath.appendingPathComponent("friends.plist")
+        let selectedFriendsPath = documentsPath.appendingPathComponent("selected_friends.plist")
         
         var friendsDictionaryArray = [[String: String]]()
         for friend in friends {
             friendsDictionaryArray.append(friend.dictionary)
         }
         
-        NSArray(array: friendsDictionaryArray).writeToURL(friendsPath, atomically: true)
-        NSArray(array: Array(selectedFriends)).writeToURL(selectedFriendsPath, atomically: true)
+        NSArray(array: friendsDictionaryArray).write(to: friendsPath, atomically: true)
+        NSArray(array: Array(selectedFriends)).write(to: selectedFriendsPath, atomically: true)
     }
     
 }

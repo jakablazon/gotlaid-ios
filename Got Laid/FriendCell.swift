@@ -18,10 +18,10 @@ class FriendCell: UITableViewCell {
     
     func animateTransitionHighlited() {
         let animation = {
-            UIView.animateWithDuration(self.animationDuration,
+            UIView.animate(withDuration: self.animationDuration,
                                        animations: {
                                         self.containerView.layer.backgroundColor =
-                                            UIColor(red: 224/255.0, green: 224/255.0, blue: 224/255.0, alpha: 1.0).CGColor
+                                            UIColor(red: 224/255.0, green: 224/255.0, blue: 224/255.0, alpha: 1.0).cgColor
                 }, completion: {finished in
                     self.animating = false
                     self.nextAnimation()
@@ -33,9 +33,9 @@ class FriendCell: UITableViewCell {
     
     func animateTransitionUnHighlited() {
         let animation = {
-            UIView.animateWithDuration(self.animationDuration,
+            UIView.animate(withDuration: self.animationDuration,
                                        animations: {
-                                        self.containerView.layer.backgroundColor = UIColor.whiteColor().CGColor
+                                        self.containerView.layer.backgroundColor = UIColor.white.cgColor
                 }, completion: {finished in
                     self.animating = false
                     self.nextAnimation()
@@ -52,19 +52,19 @@ class FriendCell: UITableViewCell {
     func nextAnimation() {
         if animationQue.first != nil && !animating {
             animating = true
-            animationQue.removeAtIndex(0)()
+            animationQue.remove(at: 0)()
         }
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: true)
         
         if selected {
-            containerView.backgroundColor = UIColor.blackColor()
-            nameLabel.textColor = UIColor.whiteColor()
+            containerView.backgroundColor = UIColor.black
+            nameLabel.textColor = UIColor.white
         } else {
-            containerView.backgroundColor = UIColor.whiteColor()
-            nameLabel.textColor = UIColor.blackColor()
+            containerView.backgroundColor = UIColor.white
+            nameLabel.textColor = UIColor.black
         }
     }
 }

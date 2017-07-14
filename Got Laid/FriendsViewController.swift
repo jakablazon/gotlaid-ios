@@ -18,24 +18,24 @@ class FriendsViewController: UITableViewController, FacebookDataFriendsDelegate 
     }
     
     // MARK: - Status Bar
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
         return RootViewController.statusBarAnimation
     }
     
     // MARK: - Table View
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfStaticCells + FacebookData.sharedInstance.friends.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier: String
         if indexPath.row == 0 {
             identifier = "FriendCellTop"
@@ -43,7 +43,7 @@ class FriendsViewController: UITableViewController, FacebookDataFriendsDelegate 
             identifier = "FriendCell"
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! FriendCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! FriendCell
         
         if indexPath.row == 0 {
             cell.nameLabel.text = "DESELECT ALL"
@@ -57,42 +57,42 @@ class FriendsViewController: UITableViewController, FacebookDataFriendsDelegate 
             
             let id = friend.id
             if FacebookData.sharedInstance.selectedFriends.contains(id) {
-                tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             }
         }
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedId = FacebookData.sharedInstance.friends[indexPath.row - numberOfStaticCells].id
         FacebookData.sharedInstance.selectedFriends.insert(selectedId)
         FacebookData.sharedInstance.selectedFriendsDelegate?.numberOfSelectedFriendsDidChange()
     }
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let selectedId = FacebookData.sharedInstance.friends[indexPath.row - numberOfStaticCells].id
         FacebookData.sharedInstance.selectedFriends.remove(selectedId)
         FacebookData.sharedInstance.selectedFriendsDelegate?.numberOfSelectedFriendsDidChange()
     }
     
-    override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         if indexPath.row < numberOfStaticCells {
-            (tableView.cellForRowAtIndexPath(indexPath) as! FriendCell).animateTransitionHighlited()
+            (tableView.cellForRow(at: indexPath) as! FriendCell).animateTransitionHighlited()
         }
     }
     
-    override func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         if indexPath.row < numberOfStaticCells {
-            (tableView.cellForRowAtIndexPath(indexPath) as! FriendCell).animateTransitionUnHighlited()
+            (tableView.cellForRow(at: indexPath) as! FriendCell).animateTransitionUnHighlited()
         }
     }
     
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.row == 0 {
             if let indexPaths = tableView.indexPathsForSelectedRows {
                 for indexPath in indexPaths {
-                    tableView.deselectRowAtIndexPath(indexPath, animated: false)
+                    tableView.deselectRow(at: indexPath, animated: false)
                 }
             }
             
@@ -101,8 +101,8 @@ class FriendsViewController: UITableViewController, FacebookDataFriendsDelegate 
             
             return nil
         } else if indexPath.row == 1 {
-            for i in numberOfStaticCells..<tableView.numberOfRowsInSection(0) {
-                tableView.selectRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0), animated: false, scrollPosition: .None)
+            for i in numberOfStaticCells..<tableView.numberOfRows(inSection: 0) {
+                tableView.selectRow(at: IndexPath(item: i, section: 0), animated: false, scrollPosition: .none)
                 let friend = FacebookData.sharedInstance.friends[i - numberOfStaticCells]
                 FacebookData.sharedInstance.selectedFriends.insert(friend.id)
             }

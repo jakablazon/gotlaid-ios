@@ -11,14 +11,14 @@ import FirebaseDatabase
 import DateTools
 
 struct Data {
-    var time: NSDate
+    var time: Date
     var name: String
     
     init(dictionary: [String: AnyObject]) {
         let timestamp = dictionary["timestamp"] as! Double
-        time = NSDate(timeIntervalSince1970: timestamp)
+        time = Date(timeIntervalSince1970: timestamp)
         name = dictionary["user_first_name"] as! String
-        name = name.uppercaseString
+        name = name.uppercased()
     }
 }
 
@@ -28,70 +28,70 @@ class FeedViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let databaseReference = FIRDatabase.database().reference()
+        let databaseReference = Database.database().reference()
         let readReference = databaseReference.child(FacebookData.sharedInstance.userID)
         
-        readReference.queryLimitedToLast(100).observeEventType(.ChildAdded, withBlock: databaseAddObserver)
-        readReference.queryLimitedToLast(100).observeEventType(.ChildRemoved, withBlock: databaseRemoveObserver)
+        readReference.queryLimited(toLast: 100).observe(.childAdded, with: databaseAddObserver)
+        readReference.queryLimited(toLast: 100).observe(.childRemoved, with: databaseRemoveObserver)
         
         readReference.keepSynced(true)
         
-        NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(updateTableView),
+        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(updateTableView),
                                                userInfo: nil, repeats: true)
     }
 
     // MARK: - Status Bar
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
         return RootViewController.statusBarAnimation
     }
     
     // MARK: - Table View
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FeedCell", forIndexPath: indexPath) as! FeedCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         
         let dataEntry = data[indexPath.row]
         
-        let timeString = dataEntry.time.timeAgoSinceNow().uppercaseString
+        let timeString = (dataEntry.time as NSDate).timeAgoSinceNow().uppercased()
         
         cell.mainLabel.text = "\(dataEntry.name) GOT LAID! \(timeString)"
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
 
     // MARK: - Data
-    func databaseAddObserver(snapshot: FIRDataSnapshot) {
+    func databaseAddObserver(_ snapshot: DataSnapshot) {
         let dataEntry = Data(dictionary: snapshot.value as! [String: AnyObject])
-        data.insert(dataEntry, atIndex: 0)
+        data.insert(dataEntry, at: 0)
         
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
-    func databaseRemoveObserver(snapshot: FIRDataSnapshot) {
+    func databaseRemoveObserver(_ snapshot: DataSnapshot) {
         data.removeLast()
         
-        let indexPath = NSIndexPath(forRow: data.count, inSection: 0)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        let indexPath = IndexPath(row: data.count, section: 0)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
     func updateTableView() {

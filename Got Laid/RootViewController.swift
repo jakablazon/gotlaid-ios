@@ -11,43 +11,43 @@ import FirebaseAuth
 
 class RootViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     lazy var orderedViewControllers: [UIViewController] = {
-        return [self.storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController"),
-            self.storyboard!.instantiateViewControllerWithIdentifier("ButtonViewController"),
-            self.storyboard!.instantiateViewControllerWithIdentifier("FeedViewController")]
+        return [self.storyboard!.instantiateViewController(withIdentifier: "FriendsViewController"),
+            self.storyboard!.instantiateViewController(withIdentifier: "ButtonViewController"),
+            self.storyboard!.instantiateViewController(withIdentifier: "FeedViewController")]
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         dataSource = self
         delegate = self
         
         let buttonViewController = orderedViewControllers[1]
-        setViewControllers([buttonViewController], direction: .Forward, animated: true, completion: nil)
+        setViewControllers([buttonViewController], direction: .forward, animated: true, completion: nil)
         
-        FIRAuth.auth()?.addAuthStateDidChangeListener {
+        Auth.auth().addStateDidChangeListener {
             (auth, user) in
             
             if user == nil {
-                if let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") {
-                    self.presentViewController(loginViewController, animated: true, completion: nil)
+                if let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
+                    self.present(loginViewController, animated: true, completion: nil)
                 }
             }
         }
     }
     
     // MARK: - Status Bar
-    static let statusBarAnimation = UIStatusBarAnimation.Fade
+    static let statusBarAnimation = UIStatusBarAnimation.fade
     
-    override func childViewControllerForStatusBarHidden() -> UIViewController? {
+    override var childViewControllerForStatusBarHidden : UIViewController? {
         return viewControllers?.first
     }
     
     // MARK: - Page View Controller Data Source
-    func pageViewController(pageViewController: UIPageViewController,
-                            viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        guard let index = orderedViewControllers.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = orderedViewControllers.index(of: viewController) else {
             return nil
         }
         
@@ -59,9 +59,9 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource, 
         return orderedViewControllers[previousIndex]
     }
     
-    func pageViewController(pageViewController: UIPageViewController,
-                            viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        guard let index = orderedViewControllers.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = orderedViewControllers.index(of: viewController) else {
             return nil
         }
         
@@ -74,15 +74,15 @@ class RootViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     // MARK: - Page View Controller Delegate
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool,
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool,
                             previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         if !completed {
             return
         }
         
-        UIView.animateWithDuration(0.2) {
+        UIView.animate(withDuration: 0.2, animations: {
             self.setNeedsStatusBarAppearanceUpdate()
-        }
+        }) 
     }
 }
